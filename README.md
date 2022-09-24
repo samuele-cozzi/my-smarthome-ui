@@ -13,6 +13,7 @@ npm install
 ### Start the dev server
 
 ```bash
+ng build
 swa start dist/angular-basic --api-location api
 ```
 

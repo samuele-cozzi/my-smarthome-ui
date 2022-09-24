@@ -12,8 +12,13 @@ export interface Room {
 export interface Configuration {
     TargetHumidity: number;
     TargetTemperature: number;
+    TemperatureTolerance: number;
     IntervalThermostat: number;
     Enabled: boolean;
+    Mode: string;
+    AirMode: string;
+    AirFan: number;
+    AirTemperature: number;
     Rooms: Room[];
 }
 
