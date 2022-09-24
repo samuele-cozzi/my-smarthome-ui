@@ -13,7 +13,7 @@ npm install
 ### Start the dev server
 
 ```bash
-npm run swa:start
+swa start dist/angular-basic --api-location api
 ```
 
 > Note: This command will use the local configuration file `swa-cli.config.json`.
