@@ -10,12 +10,22 @@ import { Home } from '../home';
 export class HomeComponent implements OnInit {
 
   home: Home | undefined;
-  mode: string;
+  disabled: boolean = true;
 
   constructor(private homeService: HomeApiService) { }
 
   ngOnInit(): void {
-    this.homeService.get().subscribe(res => this.home = res);
+    this.homeService.get()
+      .subscribe(res => this.home = res);
   }
 
+  enableSettings(){
+    this.disabled = false;
+  }
+
+  save(){
+    this.homeService.save(this.home)
+      .subscribe(res => console.log(res));
+    this.disabled = true;
+  }
 }

@@ -14,4 +14,20 @@ export class HomeApiService {
     var response = this.http.get<Home>('/api/GetHome');
     return response;
   }
+
+  save(home: Home) {
+    return this.http.post('/api/PostConfiguration', home.Configuration);
+  }
+
+  ACpower(power: boolean, acId:string, home: Home) {
+    var ac = {
+      "DeviceId": acId,
+      "Power": power,
+      "Mode": home.Configuration.AirMode,
+      "Fan": home.Configuration.AirFan,
+      "Temp": home.Configuration.AirTemperature
+    };
+
+    return this.http.post('/api/PostAirConditioner', ac);
+  }
 }
