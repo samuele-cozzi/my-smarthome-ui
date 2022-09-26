@@ -18,11 +18,15 @@ import {MatListModule} from '@angular/material/list';
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from './app-routing.module'; 
 import { HomeComponent } from './home/home.component';
+import { ThermostatComponent } from './thermostat/thermostat.component';
+import { AcComponent } from './ac/ac.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    ThermostatComponent,
+    AcComponent
   ],
   imports: [
     BrowserModule,

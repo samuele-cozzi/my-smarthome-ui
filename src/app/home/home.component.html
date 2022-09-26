@@ -97,17 +97,21 @@
         </button>
       </div>
     </div>
-    <div flex fxLayout="row">
-      <mat-list>
+    <div flex fxLayout="column">
+      <mat-list fxFlex="100">
         <ng-container *ngFor="let room of home.Configuration.Rooms">
             <mat-list-item>{{room.Name}}</mat-list-item>
             <mat-list>
-                <div *ngFor="let device of room.Devices">
+                <div *ngFor="let device of room.Devices" fxFlex="100">
                     <div *ngIf="device.Type == 'AirConditioners'">
-                      <mat-list-item>{{ device.Name }} - 1</mat-list-item>
+                      <mat-list-item>
+                        <app-thermostat [id]="device.Id" [thermostats]="home.Thermostats"></app-thermostat>
+                      </mat-list-item>
                     </div>
                     <div *ngIf="device.Type == 'Thermostats'">
-                      <mat-list-item>{{ device.Name }} - 2</mat-list-item>
+                      <mat-list-item>
+                        <app-ac [id]="device.Id" [acs]="home.AirConditioners"></app-ac>
+                      </mat-list-item>
                     </div>
                 </div>
             </mat-list>

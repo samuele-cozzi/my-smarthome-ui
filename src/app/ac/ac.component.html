@@ -1,0 +1,14 @@
+<mat-card>
+    <mat-card-title>{{ac.DeviceId}}</mat-card-title>
+    <mat-card-subtitle>air conditioner</mat-card-subtitle>
+    <mat-card-content>
+        <p>Power: {{ac.Power}} </p>
+        <p>Temperature: {{ac.Temp}}° </p>
+        <p>Mode: {{ac.Mode}} </p>
+        <p>Fan: {{ac.Fan}} </p>    
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button [disabled]="ac.Power">On</button>
+        <button mat-button [disabled]="!ac.Power">Off</button>
+    </mat-card-actions>
+</mat-card>
