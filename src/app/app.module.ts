@@ -13,6 +13,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle'; 
 import {MatInputModule} from '@angular/material/input'; 
 import {MatSelectModule} from '@angular/material/select'; 
+import {MatListModule} from '@angular/material/list';
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from './app-routing.module'; 
@@ -37,7 +38,8 @@ import { HomeComponent } from './home/home.component';
     MatCardModule,
     MatSlideToggleModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
