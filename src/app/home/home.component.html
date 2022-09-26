@@ -110,7 +110,7 @@
                     </div>
                     <div *ngIf="device.Type == 'Thermostats'">
                       <mat-list-item>
-                        <app-ac [id]="device.Id" [acs]="home.AirConditioners"></app-ac>
+                        <app-ac [id]="device.Id" [home]="home"></app-ac>
                       </mat-list-item>
                     </div>
                 </div>

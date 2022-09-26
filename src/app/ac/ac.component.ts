@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AirConditioner } from '../home';
+import { AirConditioner, Home } from '../home';
+import { HomeApiService } from '../home-api.service';
 
 @Component({
   selector: 'app-ac',
@@ -12,14 +13,25 @@ export class AcComponent implements OnInit {
   id: string;
 
   @Input()
-  acs: AirConditioner[];
+  home: Home;
 
   ac: AirConditioner;
 
-  constructor() { }
+  constructor(private homeService: HomeApiService) { }
 
   ngOnInit(): void {
-    this.ac = this.acs.find(x => x.DeviceId == this.id);
+    this.ac = this.home.AirConditioners.find(x => x.DeviceId == this.id);
   }
 
+  powerOn(){
+    this.homeService.ACpower(true, this.ac.DeviceId, this.home)
+      .subscribe(res => console.log(res));
+    this.ac.Power = true;
+  }
+
+  powerOff(){
+    this.homeService.ACpower(false, this.ac.DeviceId, this.home)
+      .subscribe(res => console.log(res));
+    this.ac.Power = false;
+  }
 }
