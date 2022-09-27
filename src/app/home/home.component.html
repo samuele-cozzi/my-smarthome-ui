@@ -1,121 +1,125 @@
 <div *ngIf="home !== undefined" class="dashboard-container" color="secondary">
+  <div *ngFor="let room of home.Configuration.Rooms" >
+
+    <h2>{{room.Name}}</h2>
     <div flex fxLayout="row" fxLayout.lt-md="column">
-        <div fxFlex="25">    
-            <mat-card class="card">
-                <mat-card-subtitle>Smart Home</mat-card-subtitle>
-                <mat-card-title>General</mat-card-title>
-                <mat-card-content>
-                  <mat-slide-toggle [(ngModel)] = "home.Configuration.Enabled" [disabled]="disabled">
-                    Enabled
-                  </mat-slide-toggle>
-                </mat-card-content>
-            </mat-card>                      
-        </div>
-        <div fxFlex="25" >    
-            <mat-card class="card">
-                <mat-card-subtitle>Smart Home</mat-card-subtitle>
-                <mat-card-title>Mode Settings</mat-card-title>
-                <mat-card-content>
-                    <form class="full-width">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Select an option</mat-label>
-                          <mat-select [(ngModel)]="home.Configuration.Mode" [disabled]="disabled" name="mode">
-                            <mat-option value="Spring">Spring</mat-option>
-                            <mat-option value="Autumn">Autumn</mat-option>
-                          </mat-select>
-                        </mat-form-field>
+      <div *ngFor="let device of room.Devices" fxFlex="25" >
 
-                        <mat-form-field class="full-width" appearance="fill">
-                          <mat-label>Thermostat Interval (ms)</mat-label>
-                          <input matInput [(ngModel)] = "home.Configuration.IntervalThermostat" [disabled]="disabled" name="IntervalThermostat" type="number" placeholder="Ex. 300000" value="">
-                        </mat-form-field>
-                    </form>
-                </mat-card-content>
-            </mat-card>            
-        </div>
-        <div fxFlex="25" >  
-            <mat-card class="card">
-                <mat-card-subtitle>Smart Home</mat-card-subtitle>
-                <mat-card-title>Target Settings</mat-card-title>
-                <mat-card-content>
-                  <form class="full-width">
-                    <mat-form-field class="full-width" appearance="fill">
-                      <mat-label>Target Temperature</mat-label>
-                      <input matInput [(ngModel)] = "home.Configuration.TargetTemperature" [disabled]="disabled" name="TargetTemperature" type="number" placeholder="Ex. 27" value="">
-                    </mat-form-field>
-                    <mat-form-field class="full-width" appearance="fill">
-                      <mat-label>Target Humidity</mat-label>
-                      <input matInput [(ngModel)] = "home.Configuration.TargetHumidity" [disabled]="disabled" name="TargetHumidity" type="number" placeholder="Ex. 45" value="">
-                    </mat-form-field>
-                    <mat-form-field class="full-width" appearance="fill">
-                      <mat-label>Temperature Tolerance</mat-label>
-                      <input matInput [(ngModel)] = "home.Configuration.TemperatureTolerance" [disabled]="disabled" name="TemperatureTolerance" type="number" placeholder="Ex. 2" value="">
-                    </mat-form-field>
-                </form>
-                </mat-card-content>
-            </mat-card>              
-        </div>
-        <div fxFlex="25" >    
-            <mat-card class="card">
-                <mat-card-subtitle>Smart Home</mat-card-subtitle>
-                <mat-card-title>Air Settings</mat-card-title>
-                <mat-card-content>
-                  <form class="full-width">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Select an option</mat-label>
-                      <mat-select [(ngModel)]="home.Configuration.AirMode" [disabled]="disabled" name="AirMode">
-                        <mat-option value="auto">Auto</mat-option>
-                        <mat-option value="cool">Cool</mat-option>
-                        <mat-option value="dry">Dry</mat-option>
-                        <mat-option value="heat">Heat</mat-option>
-                        <mat-option value="fan">Fan</mat-option>
-                      </mat-select>
-                    </mat-form-field>
+        <app-thermostat *ngIf="device.Type == 'AirConditioners'" [id]="device.Id"
+          [thermostats]="home.Thermostats"></app-thermostat>
 
-                    <mat-form-field class="full-width" appearance="fill">
-                      <mat-label>Temperature</mat-label>
-                      <input matInput [(ngModel)] = "home.Configuration.AirTemperature" [disabled]="disabled" name="AirTemperature" type="number" placeholder="Ex. 45" value="">
-                    </mat-form-field>
-                    <mat-form-field class="full-width" appearance="fill">
-                      <mat-label>Fan</mat-label>
-                      <input matInput [(ngModel)] = "home.Configuration.AirFan" [disabled]="disabled" name="AirFan" type="number" placeholder="Ex. 2" value="">
-                    </mat-form-field>
-                </form>
-                </mat-card-content>
-            </mat-card>            
-        </div>
-    </div>
-    <div flex fxLayout="row"  fxLayout.lt-md="column">
-      <div fxFlex="50">
-        <button (click)="enableSettings()" [disabled]="!disabled" class="full-width" mat-raised-button color="primary">
-          Edit
-        </button>
-      </div>
-      <div fxFlex="50">
-        <button (click)="save()" [disabled]="disabled" class="full-width" mat-raised-button color="primary">
-          save
-        </button>
+        <app-ac *ngIf="device.Type == 'Thermostats'" [id]="device.Id" [home]="home"></app-ac>
+
       </div>
     </div>
-    <div flex fxLayout="column">
-      <mat-list fxFlex="100">
-        <ng-container *ngFor="let room of home.Configuration.Rooms">
-            <mat-list-item>{{room.Name}}</mat-list-item>
-            <mat-list>
-                <div *ngFor="let device of room.Devices" fxFlex="100">
-                    <div *ngIf="device.Type == 'AirConditioners'">
-                      <mat-list-item>
-                        <app-thermostat [id]="device.Id" [thermostats]="home.Thermostats"></app-thermostat>
-                      </mat-list-item>
-                    </div>
-                    <div *ngIf="device.Type == 'Thermostats'">
-                      <mat-list-item>
-                        <app-ac [id]="device.Id" [home]="home"></app-ac>
-                      </mat-list-item>
-                    </div>
-                </div>
-            </mat-list>
-        </ng-container>
-      </mat-list>
+  </div>
+
+  <h2>Settings</h2>
+  
+  <div flex fxLayout="row" fxLayout.lt-md="column">
+    
+
+    <div fxFlex="25">
+      <mat-card class="card">
+        <mat-card-subtitle>Smart Home</mat-card-subtitle>
+        <mat-card-title>General</mat-card-title>
+        <mat-card-content>
+          <mat-slide-toggle [(ngModel)]="home.Configuration.Enabled" [disabled]="disabled">
+            Enabled
+          </mat-slide-toggle>
+        </mat-card-content>
+      </mat-card>
     </div>
+    <div fxFlex="25">
+      <mat-card class="card">
+        <mat-card-subtitle>Smart Home</mat-card-subtitle>
+        <mat-card-title>Mode Settings</mat-card-title>
+        <mat-card-content>
+          <form class="full-width">
+            <mat-form-field appearance="fill">
+              <mat-label>Select an option</mat-label>
+              <mat-select [(ngModel)]="home.Configuration.Mode" [disabled]="disabled" name="mode">
+                <mat-option value="Spring">Spring</mat-option>
+                <mat-option value="Autumn">Autumn</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Thermostat Interval (ms)</mat-label>
+              <input matInput [(ngModel)]="home.Configuration.IntervalThermostat" [disabled]="disabled"
+                name="IntervalThermostat" type="number" placeholder="Ex. 300000" value="">
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex="25">
+      <mat-card class="card">
+        <mat-card-subtitle>Smart Home</mat-card-subtitle>
+        <mat-card-title>Target Settings</mat-card-title>
+        <mat-card-content>
+          <form class="full-width">
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Target Temperature</mat-label>
+              <input matInput [(ngModel)]="home.Configuration.TargetTemperature" [disabled]="disabled"
+                name="TargetTemperature" type="number" placeholder="Ex. 27" value="">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Target Humidity</mat-label>
+              <input matInput [(ngModel)]="home.Configuration.TargetHumidity" [disabled]="disabled"
+                name="TargetHumidity" type="number" placeholder="Ex. 45" value="">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Temperature Tolerance</mat-label>
+              <input matInput [(ngModel)]="home.Configuration.TemperatureTolerance" [disabled]="disabled"
+                name="TemperatureTolerance" type="number" placeholder="Ex. 2" value="">
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex="25">
+      <mat-card class="card">
+        <mat-card-subtitle>Smart Home</mat-card-subtitle>
+        <mat-card-title>Air Settings</mat-card-title>
+        <mat-card-content>
+          <form class="full-width">
+            <mat-form-field appearance="fill">
+              <mat-label>Select an option</mat-label>
+              <mat-select [(ngModel)]="home.Configuration.AirMode" [disabled]="disabled" name="AirMode">
+                <mat-option value="auto">Auto</mat-option>
+                <mat-option value="cool">Cool</mat-option>
+                <mat-option value="dry">Dry</mat-option>
+                <mat-option value="heat">Heat</mat-option>
+                <mat-option value="fan">Fan</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Temperature</mat-label>
+              <input matInput [(ngModel)]="home.Configuration.AirTemperature" [disabled]="disabled"
+                name="AirTemperature" type="number" placeholder="Ex. 45" value="">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Fan</mat-label>
+              <input matInput [(ngModel)]="home.Configuration.AirFan" [disabled]="disabled" name="AirFan" type="number"
+                placeholder="Ex. 2" value="">
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div flex fxLayout="row" fxLayout.lt-md="column">
+    <div fxFlex="50">
+      <button (click)="enableSettings()" [disabled]="!disabled" class="full-width" mat-raised-button color="primary">
+        Edit
+      </button>
+    </div>
+    <div fxFlex="50">
+      <button (click)="save()" [disabled]="disabled" class="full-width" mat-raised-button color="primary">
+        save
+      </button>
+    </div>
+  </div>
 </div>
