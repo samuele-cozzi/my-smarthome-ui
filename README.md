@@ -54,3 +54,7 @@ npm run swa:login
 ```bash
 npm run swa:deploy
 ```
+
+## Reference
+
+- [auth](https://anthonychu.ca/post/static-web-apps-restrict-aad-users/)
