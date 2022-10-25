@@ -15,6 +15,9 @@ export interface Configuration {
     TemperatureTolerance: number;
     IntervalThermostat: number;
     Enabled: boolean;
+    LastUpdateDate: string,
+    StartTime: string;
+    EndTime: string;
     Mode: string;
     AirMode: string;
     AirFan: number;
