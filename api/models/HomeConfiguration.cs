@@ -4,7 +4,7 @@ public class HomeConfiguration {
     public double TargetHumidity { get; set; }
     public double TargetTemperature { get; set; }
     public double TemperatureTolerance { get; set; }
-    public double IntervalThermostat { get; set; }
+    public int IntervalThermostat { get; set; }
     public bool Enabled { get; set; }
     public string Mode { get; set; }
     public DateTime LastUpdateDate { get; set; }

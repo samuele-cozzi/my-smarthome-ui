@@ -30,7 +30,7 @@ namespace api
                 interval = home.Configuration.IntervalThermostat,
                 power = Convert.ToInt32(req.Power),
                 mode = req.Mode,
-                temperature = Convert.ToInt32(Math.Round(req.Temp)),
+                temperature = req.Temp,
                 fan = req.Fan
             };
 
