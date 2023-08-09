@@ -14,7 +14,7 @@ sudo apt-get update
 sudo apt-get install azure-functions-core-tools-4
 
 # azure swa
-npm install -g @angular/cli@latest
+npm install -g @angular/cli@13
 swa --version
 
 # angular
