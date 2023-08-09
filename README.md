@@ -4,6 +4,27 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
+## Environment setup
+
+```bash
+# azure cli
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list'
+sudo apt-get update
+sudo apt-get install azure-functions-core-tools-4
+
+# azure swa
+npm install -g @angular/cli@latest
+swa --version
+
+# angular
+npm install -g @azure/static-web-apps-cli
+```
+
+### References
+
+- [azure cli](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=linux%2Cportal%2Cv2%2Cbash&pivots=programming-language-csharp)
+
 ## Project setup
 
 ```bash
