@@ -12,6 +12,10 @@ export class AppComponent {
   constructor(private oneSignal: OneSignal) {
     this.oneSignal.init({
       appId: "17d959dc-69a8-48d7-be88-8cae68dd2ea2",
+      serviceWorkerParam: {
+        scope: '/assets/push/'
+      },
+      serviceWorkerPath: '/assets/push/'
     });
   }
 }
